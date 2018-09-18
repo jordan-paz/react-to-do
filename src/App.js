@@ -31,7 +31,13 @@ class App extends Component {
     const todo = todos[index];
     todo.isCompleted = todo.isCompleted ? false : true;
     this.setState({ todos : todos });
-    }
+  }
+
+  deleteTodo(index) {
+    const todo = this.state.todos[index];
+    const newTodos = this.state.todos.filter(element => element !== todo)
+    this.setState({ todos : newTodos });
+  }
 
   render() {
     return (
@@ -40,7 +46,13 @@ class App extends Component {
           {
             this.state.todos.map(
               (todo, index) =>
-              <ToDo key={ index } description={ todo.description} isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+                <ToDo
+                key={ index }
+                description={ todo.description}
+                isCompleted={ todo.isCompleted }
+                toggleComplete={ () => this.toggleComplete(index) }
+                deleteTodo = { () => this.deleteTodo(index) }
+                />
             )
           }
         </ul>
